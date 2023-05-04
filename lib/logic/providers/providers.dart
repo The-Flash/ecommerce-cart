@@ -12,9 +12,12 @@ final productsProvider = FutureProvider.autoDispose((ref) {
 });
 
 final productsByCategoryProvider = FutureProvider.autoDispose
-    .family<List<Product>?, String>((ref, category) async {
+    .family<List<Product>?, String?>((ref, category) async {
   final productsResponse = ref.watch(productsProvider);
   final products = productsResponse.asData?.value;
+  if (category == null) {
+    return products;
+  }
   if (products != null) {
     return products.where((element) => element.category == category).toList();
   }

@@ -1,51 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:product_catalogue/features/home/ui/headline.dart';
-import 'package:product_catalogue/features/home/ui/search_box.dart';
-import 'package:product_catalogue/features/home/ui/top_banner.dart';
-import 'package:product_catalogue/features/home/ui/top_header_options.dart';
-import 'package:product_catalogue/ui/common/theme/app_colors.dart';
+import 'package:product_catalogue/features/home/ui/home_app_bar.dart';
+import 'package:product_catalogue/features/product_grid/product_grid.dart';
 
 import 'ui/product_category_tabs.dart';
 
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      backgroundColor: AppColors.bgColor,
-      body: Column(
-        children: [
-          Stack(
-            clipBehavior: Clip.none,
-            children: const [
-              TopBanner(),
-              Positioned(
-                top: 50,
-                right: 20,
-                left: 20,
-                child: TopHeaderOptions(),
-              ),
-              Positioned(
-                top: 150,
-                left: 20,
-                child: Headline(),
-              ),
-              Positioned(
-                bottom: -25,
-                left: 0,
-                right: 0,
-                child: Align(
-                  child: SearchBox(),
-                ),
-              ),
-            ],
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: HomeAppBar(),
           ),
-          const SizedBox(
-            height: 50,
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 30,
+            ),
           ),
-          const ProductCategoryTabs(),
+          SliverAppBar(
+            elevation: 0,
+            pinned: true,
+            backgroundColor: Colors.white,
+            flexibleSpace: SafeArea(
+              child: ProductCategoryTabs(),
+            ),
+          ),
+          SliverPadding(
+            padding: EdgeInsets.symmetric(
+              vertical: 20,
+            ),
+            sliver: ProductGrid(),
+          ),
         ],
       ),
     );

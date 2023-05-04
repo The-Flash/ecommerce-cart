@@ -36,6 +36,8 @@ class RoundedTabItem extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(50),
                 child: Container(
+                  width: 30,
+                  height: 30,
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: isActive ? Colors.white : inActiveColor,
