@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import './app_colors.dart';
 
 class AppTheme {
   static ThemeData theme() {
-    return ThemeData(
-      primarySwatch: Colors.blue,
-    );
+    final theme = ThemeData();
+    return theme.copyWith(
+        colorScheme: theme.colorScheme.copyWith(
+      primary: AppColors.primaryColor,
+    ));
   }
 }
