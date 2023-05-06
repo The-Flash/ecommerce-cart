@@ -3,11 +3,16 @@ import 'package:go_router/go_router.dart';
 import 'package:product_catalogue/features/bootstrap/bootstrap_screen.dart';
 import 'package:product_catalogue/features/error/error_screen.dart';
 import 'package:product_catalogue/features/home/home_screen.dart';
+import 'package:product_catalogue/features/product_details/product_details_screen.dart';
+import 'package:product_catalogue/logic/models/models.dart';
 
 class ScreenPaths {
   static String bootstrap = "/bootstrap";
   static String home = "/";
   static String error = "/error";
+  static String productDetails = "/products/:id";
+  static String Function(int) buildProductDetails =
+      (productId) => "/products/$productId";
 }
 
 final router = GoRouter(
@@ -41,6 +46,15 @@ final router = GoRouter(
           );
         },
       ),
+    ),
+    GoRoute(
+      path: ScreenPaths.productDetails,
+      builder: (context, state) {
+        final product = state.extra as Product;
+        return ProductDetailsScreen(
+          product: product,
+        );
+      },
     ),
   ],
 );
